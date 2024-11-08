@@ -34,15 +34,24 @@ const isNumValid = (num) => {
 
   if (base == 1) return false;
 
-  let i = 2;
-  while (true) {
-    const result = base ** i;
-    if (result == num) return true;
-    else if (result > num) return false;
-    i++;
-  }
+  const res1 = base ** 2;
+  const res2 = base ** 3;
+  const res3 = base ** 4;
+  const res4 = base ** 5;
+  const res5 = base ** 6;
+  const res6 = base ** 7;
+
+  return (
+    res1 == num ||
+    res2 == num ||
+    res3 == num ||
+    res4 == num ||
+    res5 == num ||
+    res6 == num
+  );
 };
 
+const allNums = [81, 512];
 function powerSumDigTerm(n) {
   // loop thru all possible numbers
   // check if that number meets the criteria
@@ -57,20 +66,25 @@ function powerSumDigTerm(n) {
   // if so, return that number
   // otherwise, keep the loop going
 
-  const allNums = [81, 512];
-  if (n == 1) return allNums[0];
-  if (n == 2) return allNums[1];
-  let i = 513;
-  while (true) {
-    if (isNumValid(i)) {
-      allNums.push(i);
-      if (allNums[n - 1]) {
-        return allNums[n - 1];
-      }
-    }
-    i++;
+  if (n < allNums.length) {
+    return allNums[n - 1];
   }
 
+  let i = allNums[allNums.length - 1] + 1;
+
+  while (true) {
+    if (i % 100 !== 0) {
+      if (isNumValid(i)) {
+        allNums.push(i);
+
+        if (n < allNums.length) {
+          return allNums[n - 1];
+        }
+      }
+    }
+
+    i++;
+  }
 }
 
 const nums = new Array(12).fill("").map((_, i) => i + 1);
